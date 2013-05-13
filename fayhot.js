@@ -540,6 +540,7 @@
 				}
 				sets = key.split(',');
 				for(var i = 0 , len = sets.length ; i < len ; i ++){
+					sets[i] = helper.trim(sets[i]);
 					match = sets[i].match(this.spliter);
 					type = match[1];
 					selector = match[2];
