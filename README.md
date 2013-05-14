@@ -15,3 +15,21 @@ fayhot.js 基于publisher(事件广播),model(数据逻辑),view(视图) 实现�
 + iterator  迭代器对象
 + collectin 集合对象
 + dictionary 字典对象
+
+######**模块简介**:
+1. 微模板引擎
+   微模板引擎通过编译节点模板,并注入数据,动态生成html页面.
+
+   ```js
+   /**
+    * compile 接受两个参数
+    * @Param html 节点id或者html字符串.
+    * @param data json数组,用于注入的数据
+    * @return 没有data,则返回函数,否则直接返回字符串
+    */
+   template.compile(html,data);
+   var fn = template.compile('domid_or_html'),
+       html = fn(data),
+       htmlV2 = template.compile('domid_or_html',data);
+   ```
+   html与htmlV2的结果是一样的.使用第一种方式可以避免生成重复的同等功能的匿名函数
