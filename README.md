@@ -1,6 +1,6 @@
 fayhot js 工具包
 ======
-[@fayhot]:http://weibo.com/fayhot
+[@fayhot]:http://weibo.com/misaki07
 fayhot.js 基于publisher(事件广播),model(数据逻辑),view(视图) 实现简单的mvc模型. (by [@fayhot])
 
 ######**依赖文件**:
