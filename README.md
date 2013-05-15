@@ -67,3 +67,9 @@ fayhot.js 基于publisher(事件广播),model(数据逻辑),view(视图) 实现�
    <div>template demo. </div>
    这只是一个测试样本.name是misaki,age是22
    ```
+   
+   + 辅助函数列表
+      1. print    主要用于调试. 在html中输出调试内容. print() 则输出到当前块的模板内容
+      2. include  
+      3. log      主要用于调试. 在firebug中输出调试内容. log(o) 则输出o
+      4. debug    主要用于调试. 在firebug中输出调试内容. debug() 则输出到当前块的模板内容. 功能和print类似
