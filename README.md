@@ -70,6 +70,34 @@ fayhot.js 基于publisher(事件广播),model(数据逻辑),view(视图) 实现�
    
    + 辅助函数列表
       1. print    主要用于调试. 在html中输出调试内容. print() 则输出到当前块的模板内容
-      2. include  
+      2. debug    主要用于调试. 在firebug中输出调试内容. debug() 则输出到当前块的模板内容. 功能和print类似
       3. log      主要用于调试. 在firebug中输出调试内容. log(o) 则输出o
-      4. debug    主要用于调试. 在firebug中输出调试内容. debug() 则输出到当前块的模板内容. 功能和print类似
+      4. include  实现类似php smarty模板的include方法. 具体实例参见下面include实例
+
+   ```html
+   <script type="text/html" id="test">
+   <!--注意是通过data访问的具体数据-->
+    <div> template demo .</div>
+    {% if(data.name == 'misaki'){ %}
+    这只是一个测试样本.name 是 {%=data.name%}, age 是 {%=data.age%}
+    {% } %}
+   </script>
+   
+   <script type="text/html" id="inc">
+    <div>include demo</div>
+    这个是这里的title.{%=data.title%}
+    {% include('test',data.inc);
+   </script>
+   ```
+   ```js
+    //动态编译dom节点inc时,会自动编译并追加dom节点test的内容
+    var data = {title:'这个是这里的title',inc:{name:'misaki',age:22}}.
+    inchtml = template.compile('inc',data);
+   ```
+   ```html
+   <!--下面是动态生成的html内容-->
+    <div>include demo</div>
+    这个是这里的title.这个是这里的title
+    <div>template demo. </div>
+    这只是一个测试样本.name是misaki,age是22
+   ```
