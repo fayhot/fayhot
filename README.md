@@ -46,6 +46,7 @@ fayhot.js 基于publisher(事件广播),model(数据逻辑),view(视图) 实现�
    下面是一个完整的示例
    ```html
    <script type="text/html" id="test">
+   <!--注意是通过data访问的具体数据-->
     <div> template demo .</div>
     {% if(data.name == 'misaki'){ %}
     这只是一个测试样本.name 是 {%=data.name%}, age 是 {%=data.age%}
@@ -53,6 +54,7 @@ fayhot.js 基于publisher(事件广播),model(数据逻辑),view(视图) 实现�
    </script>
    ```
    ```js
+    //comiple获取dom节点内容并注入数据生成html
     var domid = "test",
     data  = {name:'misaki',age:22},
     html = template.compile(domid,data);
