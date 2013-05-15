@@ -63,5 +63,7 @@ fayhot.js 基于publisher(事件广播),model(数据逻辑),view(视图) 实现�
     html = fn(data);
    ```
    ```html
+   <!--下面是动态生成的html内容-->
+   <div>template demo. </div>
    这只是一个测试样本.name是misaki,age是22
    ```
