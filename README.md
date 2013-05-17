@@ -101,3 +101,6 @@ fayhot.js 基于publisher(事件广播),model(数据逻辑),view(视图) 实现�
     <div>template demo. </div>
     这只是一个测试样本.name是misaki,age是22
    ```
+
+2. publisher 事件派发
+ 
