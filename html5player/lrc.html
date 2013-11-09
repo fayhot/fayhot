@@ -1,0 +1,210 @@
+<html><head>
+<meta http-equiv=Content-Type content=text/html; charset=utf-8>
+<title>林俊杰 - 完美新世界</title>
+<style>
+<!--
+.div
+{
+width:460px;
+height:200px;
+overflow-y:scroll;
+padding-top:80px;
+text-align:left;
+padding-left:100px;
+line-height:25px;
+font-size:13px;
+padding-bottom:50px;
+}
+-->
+</style>
+<script language="javascript">
+var scrollt=0;
+var tflag=0;//存放时间和歌词的数组的下标
+var lytext=new Array();//放存汉字的歌词
+var lytime=new Array();//存放时间
+var delay=10;
+var line=0;
+var scrollh=0;
+function getLy()//取得歌词
+{
+var ly="[00:00]完美新世界.[00:10]作曲:林俊杰.[00:14]支持JJ.[00:18]LRC歌词制作:鸿恒之心.[00:44]是你一束光 琥珀色远方.[00:50]回忆被穿肠 伤口被遗忘.[00:56]泪水跟着眼眶 流出一道方向.[01:02]牵引着你我的希望.[01:11][02:52][03:50]手联手 用心连接宇宙.[01:16][02:57]夜光倾透 寒风里微颤抖.[01:22]古老的记忆 不断的寻觅.[01:28][03:09]因为爱要坚持到最后.[01:34][03:15]手联手 抚平心灵伤口.[01:39][03:21][03:55]寒风颤抖 还是要往前走.[01:45][03:26][04:01]当太阳再升起 用爱解冻大地.[01:51][03:32]重建完美新世界 重现你和我.[03:45]Yeah ~ Yeah ~[02:25]什么无偿 说不出模样.[02:31]我是迎着光 逆着风飘荡.[02:37]你说暮色苍茫 空气开始摇晃.[02:44]不用害怕 走吧.[02:46]希望就在不远地方.[03:03]古老的记忆 依然不断的寻觅.[04:07]重现完美新世界.[04:14]只有你和我.[00:06][00:22][01:08][01:33][02:00][02:517][03:14][03:43][03:49][04:19] 歌词很给力噢！.[04:20]music end……."
+return ly;
+}
+function show(t)//显示歌词
+{
+var div1=document.getElementById("lyr");//取得层
+document.getElementById("lyr").innerHTML=" ";//每次调用清空以前的一次
+if(t<lytime[lytime.length-1])//先舍弃数组的最后一个
+{
+for(var k=0;k<lytext.length;k++)
+{
+if(lytime[k]<=t&&t<lytime[k+1])
+{
+scrollh=k*25;//让当前的滚动条的顶部改变一行的高度
+div1.innerHTML+="<font color=red style=font-weight:bold>"+lytext[k]+"</font><br>";
+}
+else if(t<lytime[lytime.length-1])//数组的最后一个要舍弃
+div1.innerHTML+=lytext[k]+"<br>";
+}
+}
+else//加上数组的最后一个
+{
+for(var j=0;j<lytext.length-1;j++)
+div1.innerHTML+=lytext[j]+"<br>";
+div1.innerHTML+="<font color=red style=font-weight:bold>"+lytext[lytext.length-1]+"</font><br>";
+}
+}
+function scrollBar()//设置滚动条的滚动
+{
+if(document.getElementById("lyr").scrollTop<=scrollh)
+document.getElementById("lyr").scrollTop+=1;
+if(document.getElementById("lyr").scrollTop>=scrollh+50)
+document.getElementById("lyr").scrollTop-=1;
+window.setTimeout("scrollBar()",delay);
+}
+function getReady()//在显示歌词前做好准备工作
+{
+var ly=getLy();//得到歌词
+//alert(ly);
+var arrly=ly.split(".");//转化成数组
+for(var i=0;i<arrly.length;i++)
+sToArray(arrly[i]);
+sortAr();
+/*for(var j=0;j<lytext.length;j++)
+{
+document.getElementById("lyr").innerHTML+=lytime[j]+lytext[j]+"<br>";
+}*/
+scrollBar();
+}
+function sToArray(str)//解析如“[02:02][00:24]没想到是你”的字符串前放入数组
+{
+var left=0;//"["的个数
+var leftAr=new Array();
+for(var k=0;k<str.length;k++)
+{
+if(str.charAt(k)=="[")
+{
+leftAr[left]=k;
+left++;
+}
+}
+if(left!=0)
+{
+for(var i=0;i<leftAr.length;i++)
+{
+lytext[tflag]=str.substring(str.lastIndexOf("]")+1);//放歌词
+lytime[tflag]=conSeconds(str.substring(leftAr[i]+1,leftAr[i]+6));//放时间
+tflag++;
+}
+}
+//alert(str.substring(leftAr[0]+1,leftAr[0]+6));
+}
+function sortAr()//按时间重新排序时间和歌词的数组
+{
+var temp=null;
+var temp1=null;
+for(var k=0;k<lytime.length;k++)
+{
+for(var j=0;j<lytime.length-k;j++)
+{
+if(lytime[j]>lytime[j+1])
+{
+temp=lytime[j];
+temp1=lytext[j];
+lytime[j]=lytime[j+1];
+lytext[j]=lytext[j+1];
+lytime[j+1]=temp;
+lytext[j+1]=temp1;
+}
+}
+}
+}
+function conSeconds(t)//把形如：01：25的时间转化成秒；
+{
+var m=t.substring(0,t.indexOf(":"));
+var s=t.substring(t.indexOf(":")+1);
+s=parseInt(s.replace(/\b(0+)/gi,""));
+if(isNaN(s))
+s=0;
+var totalt=parseInt(m)*60+s;
+//alert(parseInt(s.replace(/\b(0+)/gi,"")));
+if(isNaN(totalt))
+return 0;
+return totalt;
+}
+function getSeconds()//得到当前播放器播放位置的时间
+{
+var t=getPosition();
+t=t.toString();//数字转换成字符串
+var s=t.substring(0,t.lastIndexOf("."));//得到当前的秒
+//alert(s);
+return s;
+}
+function getPosition()//返回当前播放的时间位置
+{
+var mm=document.getElementById("MediaPlayer1");
+//var mmt=;
+//alert(mmt);
+return mm.CurrentPosition;
+}
+function mPlay()//开始播放
+{
+var ms=parseInt(getSeconds());
+if(isNaN(ms))
+show(0);
+else
+show(ms);
+window.setTimeout("mPlay()",100)
+}
+window.setTimeout("mPlay()",100)
+function test()//测试使用，
+{
+alert(lytime[lytime.length-1]);
+}
+</script>
+</head>
+<body onLoad="getReady()">
+<object id="MediaPlayer1" width="460" height="68" classid="CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95"
+codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,5,715"
+align="baseline" border="0" standby="Loading Microsoft Windows Media Player components..."
+type="application/x-oleobject">
+<param name="FileName" value="http://wma.9ku.com:8181/2010/11/2/658.mp3">
+<param name="ShowControls" value="1">
+<param name="ShowPositionControls" value="0">
+<param name="ShowAudioControls" value="1">
+<param name="ShowTracker" value="1">
+<param name="ShowDisplay" value="0">
+<param name="ShowStatusBar" value="1">
+<param name="AutoSize" value="0">
+<param name="ShowGotoBar" value="0">
+<param name="ShowCaptioning" value="0">
+<param name="AutoStart" value="1">
+<param name="PlayCount" value="0">
+<param name="AnimationAtStart" value="0">
+<param name="TransparentAtStart" value="0">
+<param name="AllowScan" value="0">
+<param name="EnableContextMenu" value="1">
+<param name="ClickToPlay" value="0">
+<param name="InvokeURLs" value="1">
+<param name="DefaultFrame" value="datawindow">
+<embed src="http://wma.9ku.com:8181/2010/11/2/658.mp3" align="baseline" border="0" width="460" height="68"
+type="application/x-mplayer2"
+pluginspage="http://www.microsoft.com/isapi/redir.dll?prd=windows&sbp=mediaplayer&ar=media&sba=plugin&"
+name="MediaPlayer" showcontrols="1" showpositioncontrols="0"
+showaudiocontrols="1" showtracker="1" showdisplay="0"
+showstatusbar="1"
+autosize="0"
+showgotobar="0" showcaptioning="0" autostart="1" autorewind="0"
+animationatstart="0" transparentatstart="0" allowscan="1"
+enablecontextmenu="1" clicktoplay="0" invokeurls="1"
+defaultframe="datawindow">
+</embed>
+</object>
+<div id=lyr class=div>歌词加载中……</div>
+
+<div align="center"></div>
+<p align="center"> </p>
+
+<p align="center"> </p>
+</body>
+</html>

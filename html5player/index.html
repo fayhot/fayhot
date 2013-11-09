@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html> 
+<head>
+	<meta charset="UTF-8">
+	<title>js富应用开发之mp3播放器</title>
+	<link rel="stylesheet" href="./css/reset.css" />
+	<link rel="stylesheet" href="./css/player.css" />
+	<script type="text/tmpl" id="tmpl_playlist">
+	{% for(var len=data.length,i=0;i < len; i++ ){ %}
+		<li data-src="{%=data[i].src%}" data-title="{%=data[i].title%}" data-lrc="{%=data[i].lrc%}" data-index="{%=i%}">{%=data[i].title%}</li>
+	{% } %}
+	</script>
+</head>
+
+<body>
+	<div id="all">
+		<div id="main">
+			<div id="loading"><span class="loadico"></span><p>正在努力的加载ing...<br/>最佳支持浏览器：chrome 19+</p></div>
+			<div id="playMain">
+				<div class="playerContainer" id="playerContainer">
+	                <audio id="player" preload="preload"></audio>
+	            </div>
+				<header class="controls clearfix">
+                    <ul class="control">
+                    	<li id="playBtn"><a href="javascript:void(0);" class="icon icoplay" title="播放/暂停"></a></li>
+					   <li id="nextBtn"><a href="javascript:void(0);" class="icon iconext" title="下一首"></a></li>
+					</ul>
+					<section class="progress">
+						<section id="progressContent" title="亲,拖动改变播放进度哦">
+							<p id="progress"></p>
+                            <p id="timer"></p>
+						</section>
+					</section>
+					<section class="vol">
+					   <a href="javascript:void(0);"  id="mute" class="icon icovol fl"></a>
+					   <section id="vol" class="fl" title="亲,拖动改变音量哦">
+					   	<span id="volProgress"></span>
+						<a href="javascript:void(0);" id="volCtrl"></a>
+					   </section>
+					</section>
+                </header>
+				
+				<section class="lrc clearfix">
+					<div class="title">
+						<a href="javascript:void(0);" id="repeatBtn" class="icon loop" title="循环方式"></a>
+						<a href="javascript:void(0);" id="resetListBtn" class="icon lrc" title="显示歌词"></a>
+					</div>
+					<div id="lists" class="clearfix icomusic">
+						<div id="musics" class="fl">
+							<div id="listWrapper">
+								<ul id="musicList">
+		                        </ul>
+							</div>
+						</div>
+						<div id="lrcs" class="fl">
+							<div id='lrcContent'>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="./js/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/jquery-ui-1.7.3.custom.min.js"></script>
+	<script type="text/javascript" src="./js/tool.js"></script>
+	<script type="text/javascript" src="./js/fayhot.js"></script>
+	<script type="text/javascript" src="./js/myplayer.js"></script>
+
+</body>
+</html>

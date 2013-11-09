@@ -1,0 +1,37 @@
+<html> 
+<head> 
+<script type="text/javascript"> 
+var currentPosition,timer; 
+function GoTop(){ 
+timer=setInterval("runToTop()",1); 
+} 
+function runToTop(){ 
+currentPosition=document.documentElement.scrollTop || document.body.scrollTop; 
+currentPosition-=10; 
+if(currentPosition>0) 
+{ 
+window.scrollTo(0,currentPosition); 
+} 
+else 
+{ 
+window.scrollTo(0,0); 
+clearInterval(timer); 
+} 
+} 
+</script> 
+<style type="text/css"> 
+</style> 
+</head> 
+<body> 
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">饭</div> 
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">吃</div> 
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">家</div> 
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">回</div> 
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">你</div> 
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">带</div> 
+<div id="back-up" onclick="GoTop()" style="border:1px solid red;height:100px;width:15px;position:fixed;cursor:pointer;right:10px;bottom:30px;">返回顶部</div> 
+<script> 
+window.scrollTo(0,document.body.scrollHeight); 
+</script> 
+</body> 
+</html> 
